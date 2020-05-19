@@ -14,22 +14,11 @@
 
 typedef int (*Operation)( int index );
 
-struct Options {
+struct Options 
+{
     char name[20];
     int index;
     Operation func;
-};
-
-struct Commands {
-    char name[20];
-    struct Options options[];
-};
-
-struct playerData
-{
-    blockData * currentBlock;
-    itemObject inventory[10];
-    /* player data */
 };
 
 struct blockData
@@ -45,17 +34,26 @@ struct itemObject
     int equippable;
 };
 
+struct Commands 
+{
+    char name[20];
+    struct Options options[];
+};
+
+struct playerData
+{
+    struct blockData * currentBlock;
+    struct itemObject inventory[10];
+    /* player data */
+};
+
 /* Function Prototypes */
-int istrcomp( const char*, const char* )
+int istrcomp( const char*, const char* );
 int playerMove( int );
 int mainPrompt();
 char * processInput( char * );
 
 int main(){
-    struct Commands commands[];
-    strcpy( commands[0].name, "move" );
-    commands[0].options[0].name = 'north';
-    commands[0].options[0].move = playerMove(0);
 
 }
 
@@ -76,7 +74,7 @@ int mainPrompt(){
     
 }
 
-char processInput( char * string[30] ){
+char * processInput( char * string[30] ){
     int iindex;
     int oindexindex = 0;
     int oindex[3];
@@ -92,5 +90,5 @@ char processInput( char * string[30] ){
             output[oindexindex][oindex] = string[iindex];
         }
     }
-    return output;
+    return (char *)output;
 }
